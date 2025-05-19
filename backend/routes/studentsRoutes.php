@@ -12,10 +12,12 @@ require_once("./controllers/studentsController.php");
  * o validaciones:
  */
 routeRequest($conn, [
-    'POST' => function($conn) {
+    'POST' => function($conn) 
+    {
         // Validación o lógica extendida
         $input = json_decode(file_get_contents("php://input"), true);
-        if (empty($input['fullname'])) {
+        if (empty($input['fullname'])) 
+        {
             http_response_code(400);
             echo json_encode(["error" => "Falta el nombre"]);
             return;
