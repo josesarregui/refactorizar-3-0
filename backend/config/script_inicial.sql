@@ -50,7 +50,6 @@ INSERT INTO subjects (name) VALUES
 
 --ON DELETE CASCADE: si eliminás un estudiante o materia, se borra
 -- su asignación automáticamente.
-
 CREATE TABLE students_subjects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
