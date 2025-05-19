@@ -1,4 +1,4 @@
- Posibles mejoras para el futuro
+Posibles mejoras para el futuro
 Variables de entorno (con .env y getenv() o $_ENV) para ocultar credenciales:
 
 php
