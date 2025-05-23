@@ -1,3 +1,4 @@
+/*frontend/js/api/apiFactory.js*/
 export function createAPI(moduleName, config = {}) 
 {
     const API_URL = config.urlOverride ?? `../../backend/server.php?module=${moduleName}`;

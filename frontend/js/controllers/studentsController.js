@@ -1,9 +1,11 @@
+/*frontend/js/controllers/studentsController.js*/
 import { studentsAPI } from '../api/studentsAPI.js';
 
 document.addEventListener('DOMContentLoaded', () => 
 {
     loadStudents();
     setupFormHandler();
+    setupCancelHandler();
 });
   
 function setupFormHandler()
@@ -31,6 +33,15 @@ function setupFormHandler()
         {
             console.error(err.message);
         }
+    });
+}
+
+function setupCancelHandler()
+{
+    const cancelBtn = document.getElementById('cancelBtn');
+    cancelBtn.addEventListener('click', () => 
+    {
+        document.getElementById('studentId').value = '';
     });
 }
   

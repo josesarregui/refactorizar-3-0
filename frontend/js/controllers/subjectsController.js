@@ -1,9 +1,11 @@
+/*frontend/js/controllers/subjectsController.js*/
 import { subjectsAPI } from '../api/subjectsAPI.js';
 
 document.addEventListener('DOMContentLoaded', () => 
 {
     loadSubjects();
     setupSubjectFormHandler();
+    setupCancelHandler();
 });
 
 function setupSubjectFormHandler() 
@@ -38,6 +40,15 @@ function setupSubjectFormHandler()
             console.error(err.message);
         }
   });
+}
+
+function setupCancelHandler()
+{
+    const cancelBtn = document.getElementById('cancelBtn');
+    cancelBtn.addEventListener('click', () => 
+    {
+        document.getElementById('subjectId').value = '';
+    });
 }
 
 async function loadSubjects()
