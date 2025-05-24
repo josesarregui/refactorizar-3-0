@@ -3,9 +3,10 @@ require_once("./models/students.php");
 
 function handleGet($conn) 
 {
-    if (isset($_GET['id'])) 
+    $input = json_decode(file_get_contents("php://input"), true);
+    if (isset($input['id'])) 
     {
-        $result = getStudentById($conn, $_GET['id']);
+        $result = getStudentById($conn, $input['id']);
         echo json_encode($result->fetch_assoc());
     } 
     else 
@@ -34,7 +35,8 @@ function handlePost($conn)
     }
 }
 
-function handlePut($conn) {
+function handlePut($conn) 
+{
     $input = json_decode(file_get_contents("php://input"), true);
     if (updateStudent($conn, $input['id'], $input['fullname'], $input['email'], $input['age'])) 
     {
