@@ -1,30 +1,38 @@
 <?php
+/**
+*    File        : backend/controllers/subjectsController.php
+*    Project     : CRUD PHP
+*    Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
+*    License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
+*    Date        : Mayo 2025
+*    Status      : Prototype
+*    Iteration   : 3.0 ( prototype )
+*/
+
 require_once("./models/subjects.php");
 
 function handleGet($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+
     if (isset($input['id'])) 
     {
-        $result = getSubjectById($conn, $input['id']);
-        echo json_encode($result->fetch_assoc());
+        $subject = getSubjectById($conn, $input['id']);
+        echo json_encode($subject);
     } 
     else 
     {
-        $result = getAllSubjects($conn);
-        $data = [];
-        while ($row = $result->fetch_assoc()) 
-        {
-            $data[] = $row;
-        }
-        echo json_encode($data);
+        $subjects = getAllSubjects($conn);
+        echo json_encode($subjects);
     }
 }
 
 function handlePost($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
-    if (createSubject($conn, $input['name'])) 
+
+    $result = createSubject($conn, $input['name']);
+    if ($result['inserted'] > 0) 
     {
         echo json_encode(["message" => "Materia creada correctamente"]);
     } 
@@ -38,6 +46,7 @@ function handlePost($conn)
 function handlePut($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+
     if (updateSubject($conn, $input['id'], $input['name'])) 
     {
         echo json_encode(["message" => "Materia actualizada correctamente"]);
@@ -52,6 +61,7 @@ function handlePut($conn)
 function handleDelete($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+    
     if (deleteSubject($conn, $input['id'])) 
     {
         echo json_encode(["message" => "Materia eliminada correctamente"]);

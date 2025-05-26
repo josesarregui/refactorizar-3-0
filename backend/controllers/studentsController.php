@@ -1,30 +1,38 @@
 <?php
+/**
+*    File        : backend/controllers/studentsController.php
+*    Project     : CRUD PHP
+*    Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
+*    License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
+*    Date        : Mayo 2025
+*    Status      : Prototype
+*    Iteration   : 3.0 ( prototype )
+*/
+
 require_once("./models/students.php");
 
 function handleGet($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+    
     if (isset($input['id'])) 
     {
-        $result = getStudentById($conn, $input['id']);
-        echo json_encode($result->fetch_assoc());
+        $student = getStudentById($conn, $input['id']);
+        echo json_encode($student);
     } 
-    else 
+    else
     {
-        $result = getAllStudents($conn);
-        $data = [];
-        while ($row = $result->fetch_assoc()) 
-        {
-            $data[] = $row;
-        }
-        echo json_encode($data);
+        $students = getAllStudents($conn);
+        echo json_encode($students);
     }
 }
 
 function handlePost($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
-    if (createStudent($conn, $input['fullname'], $input['email'], $input['age'])) 
+
+    $result = createStudent($conn, $input['fullname'], $input['email'], $input['age']);
+    if ($result['inserted'] > 0) 
     {
         echo json_encode(["message" => "Estudiante agregado correctamente"]);
     } 
@@ -38,6 +46,7 @@ function handlePost($conn)
 function handlePut($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+
     if (updateStudent($conn, $input['id'], $input['fullname'], $input['email'], $input['age'])) 
     {
         echo json_encode(["message" => "Actualizado correctamente"]);
@@ -52,6 +61,7 @@ function handlePut($conn)
 function handleDelete($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
+
     if (deleteStudent($conn, $input['id'])) 
     {
         echo json_encode(["message" => "Eliminado correctamente"]);
