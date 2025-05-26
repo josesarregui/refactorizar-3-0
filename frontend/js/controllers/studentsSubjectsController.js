@@ -148,9 +148,7 @@ function renderRelationsTable(relations)
     {
         const tr = document.createElement('tr');
 
-        // tr.appendChild(createCell(rel.fullname || rel.student_id));old
         tr.appendChild(createCell(rel.student_fullname));
-        // tr.appendChild(createCell(rel.name || rel.subject_id));old
         tr.appendChild(createCell(rel.subject_name));
         tr.appendChild(createCell(rel.approved ? 'Sí' : 'No'));
         tr.appendChild(createActionsCell(rel));
