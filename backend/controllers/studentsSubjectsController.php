@@ -44,7 +44,8 @@ function handlePut($conn)
         return;
     }
 
-    if (updateStudentSubject($conn, $input['id'], $input['student_id'], $input['subject_id'], $input['approved'])) 
+    $result = updateStudentSubject($conn, $input['id'], $input['student_id'], $input['subject_id'], $input['approved']);
+    if ($result['updated'] > 0) 
     {
         echo json_encode(["message" => "Actualización correcta"]);
     } 
@@ -58,7 +59,9 @@ function handlePut($conn)
 function handleDelete($conn) 
 {
     $input = json_decode(file_get_contents("php://input"), true);
-    if (removeStudentSubject($conn, $input['id'])) 
+
+    $result = removeStudentSubject($conn, $input['id']);
+    if ($result['deleted'] > 0) 
     {
         echo json_encode(["message" => "Relación eliminada"]);
     } 

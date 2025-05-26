@@ -47,7 +47,8 @@ function handlePut($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
 
-    if (updateStudent($conn, $input['id'], $input['fullname'], $input['email'], $input['age'])) 
+    $result = updateStudent($conn, $input['id'], $input['fullname'], $input['email'], $input['age']);
+    if ($result['updated'] > 0) 
     {
         echo json_encode(["message" => "Actualizado correctamente"]);
     } 
@@ -62,7 +63,8 @@ function handleDelete($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
 
-    if (deleteStudent($conn, $input['id'])) 
+    $result = deleteStudent($conn, $input['id']);
+    if ($result['deleted'] > 0) 
     {
         echo json_encode(["message" => "Eliminado correctamente"]);
     } 

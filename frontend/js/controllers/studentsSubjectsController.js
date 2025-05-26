@@ -12,7 +12,6 @@ import { studentsAPI } from '../api/studentsAPI.js';
 import { subjectsAPI } from '../api/subjectsAPI.js';
 import { studentsSubjectsAPI } from '../api/studentsSubjectsAPI.js';
 
-
 document.addEventListener('DOMContentLoaded', () => 
 {
     initSelects();

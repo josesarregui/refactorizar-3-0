@@ -47,7 +47,8 @@ function handlePut($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
 
-    if (updateSubject($conn, $input['id'], $input['name'])) 
+    $result = updateSubject($conn, $input['id'], $input['name']);
+    if ($result['updated'] > 0) 
     {
         echo json_encode(["message" => "Materia actualizada correctamente"]);
     } 
@@ -62,7 +63,8 @@ function handleDelete($conn)
 {
     $input = json_decode(file_get_contents("php://input"), true);
     
-    if (deleteSubject($conn, $input['id'])) 
+    $result = deleteSubject($conn, $input['id']);
+    if ($result['deleted'] > 0) 
     {
         echo json_encode(["message" => "Materia eliminada correctamente"]);
     } 
