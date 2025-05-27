@@ -51,7 +51,7 @@ function getSubjectsByStudent($conn, $student_id)
     $stmt->execute();
     $result= $stmt->get_result();
 
-    return $result->fetch_assoc(); 
+    return $result->fetch_all(MYSQLI_ASSOC); 
 }
 
 function updateStudentSubject($conn, $id, $student_id, $subject_id, $approved) 
