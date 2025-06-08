@@ -27,21 +27,30 @@ function handleGet($conn)
     }
 }
 
-function handlePost($conn) 
+function handlePost($conn) //modificaciones ppara el inciso A
 {
+    // OBS: Leer input JSON recibido
     $input = json_decode(file_get_contents("php://input"), true);
 
+    // OBS: Intentar crear la materia
     $result = createSubject($conn, $input['name']);
-    if ($result['inserted'] > 0) 
-    {
+
+    // OBS: Verificar si la creación devolvió un error (ej: materia duplicada)
+    if (isset($result['error'])) {
+        http_response_code(409); // OBS: Código 409 Conflict para indicar duplicado
+        echo json_encode(['error' => $result['error']]);
+    }
+    // OBS: Si se insertó correctamente
+    else if ($result['inserted'] > 0) {
         echo json_encode(["message" => "Materia creada correctamente"]);
     } 
-    else 
-    {
+    // OBS: Si ocurrió otro error inesperado
+    else {
         http_response_code(500);
         echo json_encode(["error" => "No se pudo crear"]);
     }
 }
+
 
 function handlePut($conn) 
 {
